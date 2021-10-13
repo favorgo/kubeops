@@ -1,0 +1,12 @@
+server:
+  host: 0.0.0.0
+  httpPort: 8080
+  grpcPort: 9090
+  timeout: 1
+app:
+  worker: 10
+  queue: 2000
+
+ansible:
+  timeout: 10
+  forks: 20

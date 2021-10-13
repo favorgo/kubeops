@@ -1,0 +1,10 @@
+version: '3'
+services:
+  kubeops-inventory:
+    image: pipper/kubeops-inventory:0.1.0
+    ports:
+      - 8080:8080
+  kubeops:
+    image: pipper/kubeops:0.1.0
+    ports:
+      - 8099:8099

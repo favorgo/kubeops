@@ -1,0 +1,13 @@
+hosts:
+  - name: master1
+    ip: 172.16.10.63
+    port: 22
+    user: root
+    password: Calong@2015
+    vars: {}
+groups:
+  - name: master
+    chidren: []
+    hosts:
+      - master1
+    vars: {}
