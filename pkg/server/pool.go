@@ -1,6 +1,7 @@
 package server
 
 import (
+	"context"
 	"github.com/prometheus/common/log"
 	"github.com/spf13/viper"
 )
@@ -12,12 +13,12 @@ type Pool struct {
 	workerSize int
 }
 
-func NewPool() *Pool {
+func NewPool(ctx context.Context) *Pool {
 	workerSize := viper.GetInt("app.worker")
 	queueSize := viper.GetInt("app.queue")
 	p := &Pool{taskQueue: make(chan TaskFunc, queueSize), workerSize: workerSize}
 	for i := 0; i < p.workerSize; i++ {
-		go p.run()
+		go p.run(ctx)
 	}
 	return p
 }
@@ -37,11 +38,13 @@ func (p *Pool) IsEmpty() bool {
 	return len(p.taskQueue) == 0
 }
 
-func (p *Pool) run() {
+func (p *Pool) run(ctx context.Context) {
 	for {
 		select {
 		case task := <-p.taskQueue:
 			task()
+		case <-ctx.Done():
+			return
 		}
 	}
 }

@@ -19,7 +19,7 @@ var playbookRunCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		host := viper.GetString("server.host")
 		port := viper.GetInt("server.port")
-		c := client.NewkubeOpsClient(host, port)
+		c := client.NewKubeOpsClient(host, port)
 		project, err := cmd.Flags().GetString("project")
 		if err != nil {
 			log.Fatal(err)

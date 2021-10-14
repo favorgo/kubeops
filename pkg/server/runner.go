@@ -30,7 +30,6 @@ func (rm *RunnerManager) CreatePlaybookRunner(projectName, playbookName, tag str
 }
 
 func (rm *RunnerManager) CreateAdhocRunner(pattern, module, param string) (*ansible.AdhocRunner, error) {
-
 	return &ansible.AdhocRunner{
 		Module:  module,
 		Param:   param,

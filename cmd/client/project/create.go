@@ -15,7 +15,7 @@ var projectCreateCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		host := viper.GetString("server.host")
 		port := viper.GetInt("server.port")
-		c := client.NewkubeOpsClient(host, port)
+		c := client.NewKubeOpsClient(host, port)
 		if len(args) < 0 {
 			log.Fatal("invalid project source")
 		}

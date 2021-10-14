@@ -5,14 +5,15 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/pipperman/kubeops/api"
-	"github.com/pipperman/kubeops/pkg/constant"
-	uuid "github.com/satori/go.uuid"
-	"google.golang.org/grpc"
 	"io/ioutil"
 	"log"
 	"os"
 	"path"
+
+	"github.com/pipperman/kubeops/api"
+	"github.com/pipperman/kubeops/pkg/constant"
+	uuid "github.com/satori/go.uuid"
+	"google.golang.org/grpc"
 )
 
 type Result map[string]map[string]interface{}
@@ -28,6 +29,7 @@ func NewKubeOpsInventoryProvider(host string, port int) *kubeOpsInventoryProvide
 		port: port,
 	}
 }
+
 func (r Result) String() string {
 	b, err := json.Marshal(&r)
 	if err != nil {
@@ -37,7 +39,6 @@ func (r Result) String() string {
 }
 
 func (kip kubeOpsInventoryProvider) getInventory(id string) (*api.Inventory, error) {
-
 	conn, err := kip.createConnection()
 	if err != nil {
 		return nil, err

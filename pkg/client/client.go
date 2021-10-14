@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-func NewkubeOpsClient(host string, port int) *kubeOpsClient {
+func NewKubeOpsClient(host string, port int) *kubeOpsClient {
 	return &kubeOpsClient{
 		host: host,
 		port: port,

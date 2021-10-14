@@ -3,7 +3,7 @@ hosts:
     ip: 172.16.10.63
     port: 22
     user: root
-    password: Calong@2015
+    password: golang@2021
     vars: {}
 groups:
   - name: master

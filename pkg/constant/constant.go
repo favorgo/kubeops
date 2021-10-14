@@ -30,6 +30,7 @@ func Init() {
 	ansibleConfDir := viper.GetString("ansible_conf_dir")
 	if ansibleConfDir != "" {
 		AnsibleConfDir = ansibleConfDir
+		AnsibleConfPath = path.Join(AnsibleConfDir, "ansible.cfg")
 	}
 
 	ansibleTemplateFilePath := viper.GetString("ansible_template_file_path")

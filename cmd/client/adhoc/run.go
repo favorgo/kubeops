@@ -19,7 +19,7 @@ var adhocRunCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		host := viper.GetString("server.host")
 		port := viper.GetInt("server.port")
-		c := client.NewkubeOpsClient(host, port)
+		c := client.NewKubeOpsClient(host, port)
 		module, _ := cmd.Flags().GetString("module")
 		pattern, _ := cmd.Flags().GetString("pattern")
 		inventoryPath, err := cmd.Flags().GetString("inventory")

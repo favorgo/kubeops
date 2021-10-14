@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dbd0a562-3e70-4eab-b741-fbd85abd3ea4" name="Default Changelist" comment="" />
+    <list default="true" id="dbd0a562-3e70-4eab-b741-fbd85abd3ea4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/client/adhoc/run.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/adhoc/run.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/client/playbook/list.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/playbook/list.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/client/playbook/run.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/playbook/run.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/client/project/create.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/project/create.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/client/project/list.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/project/list.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/client/task/describe.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/task/describe.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/client/task/list.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/task/list.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/server/kubeops.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/server/kubeops.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/usr/local/bin/kubeops-inventory" beforeDir="false" afterPath="$PROJECT_DIR$/dist/usr/local/bin/kubeops-inventory" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/usr/local/bin/kubeops-server" beforeDir="false" afterPath="$PROJECT_DIR$/dist/usr/local/bin/kubeops-server" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/usr/local/bin/opsctl" beforeDir="false" afterPath="$PROJECT_DIR$/dist/usr/local/bin/opsctl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/inventory.yml" beforeDir="false" afterPath="$PROJECT_DIR$/example/inventory.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/client/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/constant/constant.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/constant/constant.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/inventory/inventory.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/inventory/inventory.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/pool.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/pool.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/project.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/project.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/runner.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/runner.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -83,7 +105,6 @@
     <configuration name="go build github.com/pipperman/kubeops/cmd/server" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="kubeops" />
       <working_directory value="$PROJECT_DIR$" />
-      <sudo value="true" />
       <kind value="PACKAGE" />
       <filePath value="$PROJECT_DIR$/cmd/server/kubeops.go" />
       <package value="github.com/pipperman/kubeops/cmd/server" />
@@ -137,10 +158,18 @@
     </environment>
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/cmd/server/prepare.go</url>
+          <line>98</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="GoApplicationRunConfiguration">
-        <watch expression="flagconf" language="go" />
-        <watch expression="viper" language="go" />
+        <watch expression="constant.AnsibleConfPath" language="go" />
       </configuration>
     </watches-manager>
   </component>

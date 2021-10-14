@@ -19,6 +19,7 @@ import (
 type KubeOps struct {
 	api.UnimplementedKubeOpsApiServer
 
+	ctx            context.Context
 	taskCache      *cache.Cache
 	inventoryCache *cache.Cache
 	chCache        *cache.Cache
@@ -28,11 +29,13 @@ type KubeOps struct {
 var _ api.KubeOpsApiServer = &KubeOps{}
 
 func NewKubeOps() *KubeOps {
+	ctx := context.Background()
 	return &KubeOps{
+		ctx:            ctx,
 		taskCache:      cache.New(24*time.Hour, 5*time.Minute),
 		chCache:        cache.New(24*time.Hour, 5*time.Minute),
 		inventoryCache: cache.New(10*time.Minute, 5*time.Minute),
-		pool:           NewPool(),
+		pool:           NewPool(ctx),
 	}
 }
 
@@ -47,6 +50,7 @@ func (k *KubeOps) CreateProject(ctx context.Context, req *api.CreateProjectReque
 	}
 	return resp, nil
 }
+
 func (k *KubeOps) ListProject(ctx context.Context, req *api.ListProjectRequest) (*api.ListProjectResponse, error) {
 	pm := ProjectManager{}
 	ps, err := pm.SearchProjects()
