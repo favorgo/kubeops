@@ -3,6 +3,7 @@ package server
 import (
 	"time"
 
+	"github.com/go-kratos/kratos/v2/log"
 	"github.com/patrickmn/go-cache"
 )
 
@@ -20,9 +21,9 @@ func WithRunnerOption(manager RunnerManagerServer) ServerOption {
 	}
 }
 
-func WithPoolOption(taskQueueSize, workerSize int) ServerOption {
+func WithPoolOption(taskQueueSize, workerSize int, logger log.Logger) ServerOption {
 	return func(ops *kubeOps) {
-		ops.pool = NewPool(ops.ctx, taskQueueSize, workerSize)
+		ops.pool = NewPool(ops.ctx, taskQueueSize, workerSize, logger)
 	}
 }
 

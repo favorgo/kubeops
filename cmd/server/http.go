@@ -21,7 +21,7 @@ func newHttpServer(logger log.Logger) *http.Server {
 		http.Timeout(time.Duration(viper.GetInt("server.timeout"))),
 	}
 	srv := http.NewServer(opts...)
-	kubeOps := server.NewKubeOps(logger, server.WithPoolOption(viper.GetInt("app.queue"), viper.GetInt("worker")))
+	kubeOps := server.NewKubeOps(logger, server.WithPoolOption(viper.GetInt("app.queue"), viper.GetInt("worker"), logger))
 	api.RegisterKubeOpsApiHTTPServer(srv, kubeOps)
 	return srv
 }

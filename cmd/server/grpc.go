@@ -31,7 +31,7 @@ func newGrpcServer(logger log.Logger) *grpc.Server {
 		grpc.Timeout(time.Duration(viper.GetInt("server.timeout"))),
 	}
 	gs := grpc.NewServer(opts...)
-	kubeOps := server.NewKubeOps(logger, server.WithPoolOption(viper.GetInt("app.queue"), viper.GetInt("worker")))
+	kubeOps := server.NewKubeOps(logger, server.WithPoolOption(viper.GetInt("app.queue"), viper.GetInt("worker"), logger))
 	api.RegisterKubeOpsApiServer(gs, kubeOps)
 	return gs
 }
