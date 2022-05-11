@@ -9,8 +9,8 @@ BUILDDIR=$(BASEPATH)/dist
 API_PROTO_FILES=$(shell find api -name *.proto)
 
 KUBEOPS_SRC=$(BASEPATH)/cmd
-KUBEOPS_SERVER_NAME=kubeops-server
-KUBEOPS_INVENTORY_NAME=kubeops-inventory
+KUBEOPS_SERVER_NAME=apiserver
+KUBEOPS_INVENTORY_NAME=inventory
 KUBEOPS_CLIENT_NAME=opsctl
 
 BIN_DIR=usr/local/bin
