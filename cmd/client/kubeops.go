@@ -11,7 +11,7 @@ import (
 // go build -ldflags "-X main.Version=x.y.z"
 var (
 	// Name is the name of the compiled software.
-	Name = "pipper.kubeops.inventory"
+	Name = "pipperman.kubeops.client"
 	// Version is the version of the compiled software.
 	Version string
 	// configPath is the config flag.

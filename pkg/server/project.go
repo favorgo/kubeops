@@ -13,10 +13,20 @@ import (
 	"github.com/pipperman/kubeops/pkg/util"
 )
 
-type ProjectManager struct {
+type ProjectManagerServer interface {
+	GetProject(name string) (*api.Project, error)
+	SearchProjects() ([]*api.Project, error)
+	IsProjectExists(name string) (bool, error)
+	CreateProject(name, source string) (*api.Project, error)
 }
 
-func (pm ProjectManager) GetProject(name string) (*api.Project, error) {
+type projectManager struct{}
+
+func NewProjectManagerServer() ProjectManagerServer {
+	return &projectManager{}
+}
+
+func (pm projectManager) GetProject(name string) (*api.Project, error) {
 	projects, err := pm.SearchProjects()
 	if err != nil {
 		return nil, err
@@ -29,7 +39,7 @@ func (pm ProjectManager) GetProject(name string) (*api.Project, error) {
 	return nil, errors.New(fmt.Sprintf("can not find project:%s", name))
 }
 
-func (pm ProjectManager) SearchProjects() ([]*api.Project, error) {
+func (pm projectManager) SearchProjects() ([]*api.Project, error) {
 	rd, err := ioutil.ReadDir(constant.ProjectDir)
 	if err != nil {
 		return nil, err
@@ -51,7 +61,7 @@ func (pm ProjectManager) SearchProjects() ([]*api.Project, error) {
 	return projects, nil
 }
 
-func (pm ProjectManager) IsProjectExists(name string) (bool, error) {
+func (pm projectManager) IsProjectExists(name string) (bool, error) {
 	projects, err := pm.SearchProjects()
 	if err != nil {
 		return false, err
@@ -65,7 +75,7 @@ func (pm ProjectManager) IsProjectExists(name string) (bool, error) {
 	return exists, nil
 }
 
-func (pm ProjectManager) CreateProject(name, source string) (*api.Project, error) {
+func (pm projectManager) CreateProject(name, source string) (*api.Project, error) {
 	projectPath := path.Join(constant.ProjectDir, name)
 	if err := os.MkdirAll(projectPath, 0755); err != nil {
 		return nil, err
@@ -85,7 +95,7 @@ func (pm ProjectManager) CreateProject(name, source string) (*api.Project, error
 	}, nil
 }
 
-func (pm *ProjectManager) searchPlaybooks(projectName string) ([]string, error) {
+func (pm *projectManager) searchPlaybooks(projectName string) ([]string, error) {
 	p := path.Join(constant.ProjectDir, projectName)
 	rd, err := ioutil.ReadDir(p)
 	if err != nil {
@@ -94,7 +104,7 @@ func (pm *ProjectManager) searchPlaybooks(projectName string) ([]string, error) 
 	var playbooks []string
 	for _, p := range rd {
 		if !p.IsDir() &&
-			strings.Contains(p.Name(), ".yml") &&
+			strings.Contains(p.Name(), ".yaml") &&
 			p.Name() != constant.AnsibleVariablesName {
 			playbooks = append(playbooks, p.Name())
 		}

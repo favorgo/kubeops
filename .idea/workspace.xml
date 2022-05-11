@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dbd0a562-3e70-4eab-b741-fbd85abd3ea4" name="Default Changelist" comment="">
+    <list default="true" id="dbd0a562-3e70-4eab-b741-fbd85abd3ea4" name="Default Changelist" comment="KubeOpsClient">
+      <change afterPath="$PROJECT_DIR$/pkg/server/option.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/client/adhoc/run.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/adhoc/run.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/client/playbook/list.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/playbook/list.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/kubeops.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/kubeops.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/kubeops.proto" beforeDir="false" afterPath="$PROJECT_DIR$/api/kubeops.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/kubeops_http.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/kubeops_http.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/client/kubeops.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/kubeops.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/client/playbook/run.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/playbook/run.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/client/project/create.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/project/create.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/client/project/list.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/project/list.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/client/task/describe.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/task/describe.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/client/task/list.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/task/list.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/inventory/kubeops-inventory.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/inventory/kubeops-inventory.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/server/grpc.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/server/grpc.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/server/http.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/server/http.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/server/kubeops.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/server/kubeops.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/usr/local/bin/kubeops-inventory" beforeDir="false" afterPath="$PROJECT_DIR$/dist/usr/local/bin/kubeops-inventory" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/usr/local/bin/kubeops-server" beforeDir="false" afterPath="$PROJECT_DIR$/dist/usr/local/bin/kubeops-server" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/usr/local/bin/opsctl" beforeDir="false" afterPath="$PROJECT_DIR$/dist/usr/local/bin/opsctl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/inventory.yml" beforeDir="false" afterPath="$PROJECT_DIR$/example/inventory.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/ansible/runner.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/ansible/runner.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/client/client.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/constant/constant.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/constant/constant.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/inventory/inventory.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/inventory/inventory.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/server/pool.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/pool.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/server/project.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/project.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/server/runner.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/runner.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/git.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/git.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,6 +149,10 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="KubeOpsClient" />
+    <option name="LAST_COMMIT_MESSAGE" value="KubeOpsClient" />
+  </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
     <environment>
@@ -158,15 +162,6 @@
     </environment>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/cmd/server/prepare.go</url>
-          <line>98</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="GoApplicationRunConfiguration">
         <watch expression="constant.AnsibleConfPath" language="go" />

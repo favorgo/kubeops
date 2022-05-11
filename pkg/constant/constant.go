@@ -6,12 +6,14 @@ import (
 	"github.com/spf13/viper"
 )
 
+// TODO 改成可配置参数
 const (
-	InventoryProviderBinPath = "kubeops-inventory"
+	InventoryProviderBinPath = "ansible-inventory"
 	AnsiblePlaybookBinPath   = "ansible-playbook"
 	AnsibleBinPath           = "ansible"
 	TaskEnvKey               = "KUBE_OPS_TASK_ID"
 	AnsibleVariablesName     = "variables.yml"
+	AnsiblePluginDir         = "ansible-plugins"
 )
 
 var (

@@ -2,10 +2,10 @@ package main
 
 import (
 	"flag"
-	"fmt"
-	"github.com/pipperman/kubeops/pkg/config"
+	"log"
 	"os"
 
+	"github.com/pipperman/kubeops/pkg/config"
 	"github.com/pipperman/kubeops/pkg/inventory"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -14,7 +14,7 @@ import (
 // go build -ldflags "-X main.Version=x.y.z"
 var (
 	// Name is the name of the compiled software.
-	Name = "pipper.kubeops.inventory"
+	Name = "pipperman.kubeops.inventory"
 	// Version is the version of the compiled software.
 	Version string
 	// configPath is the config flag.
@@ -44,20 +44,19 @@ var rootCmd = &cobra.Command{
 		provider := inventory.NewKubeOpsInventoryProvider(host, port)
 		list, err := cmd.Flags().GetBool("list")
 		if err != nil {
-			fmt.Println(err)
+			log.Println(err)
 			os.Exit(1)
 		}
 		if list {
 			result, err := provider.ListHandler()
 			if err != nil {
-				fmt.Println(err)
+				log.Println(err)
 				os.Exit(1)
 			}
-			fmt.Println(result)
+			log.Println(result)
 			os.Exit(0)
 		}
-		fmt.Println(host)
-		fmt.Println(port)
+		log.Printf("Host: %s\n Port: %d", host, port)
 	},
 }
 

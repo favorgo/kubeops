@@ -31,7 +31,7 @@ service KubeOpsApi {
   }
   rpc RunAdhoc(RunAdhocRequest) returns(RunAdhocResult){
     option  (google.api.http) = {
-      post: "/kubeops/Adhoc",
+      post: "/kubeops/adhoc",
       body: "*"
     };
   }

@@ -16,16 +16,16 @@ var taskDescribeCmd = &cobra.Command{
 		port := viper.GetInt("server.port")
 		c := client.NewKubeOpsClient(host, port)
 		if len(args) < 1 {
-			log.Fatal("task id missing")
+			log.Fatal("task_id missing")
 		}
 		taskId := args[0]
 		result, err := c.GetResult(taskId)
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println(fmt.Sprintf("id: %s", result.Id))
-		fmt.Println(fmt.Sprintf("star time: %s", result.StartTime))
-		fmt.Println(fmt.Sprintf("end time: %s", result.EndTime))
+		fmt.Println(fmt.Sprintf("result_id: %s", result.Id))
+		fmt.Println(fmt.Sprintf("star_time: %s", result.StartTime))
+		fmt.Println(fmt.Sprintf("end_time: %s", result.EndTime))
 		fmt.Println(fmt.Sprintf("finished: %t", result.Finished))
 		fmt.Println(fmt.Sprintf("success: %t", result.Success))
 		fmt.Println(fmt.Sprintf("message:%s", result.Message))

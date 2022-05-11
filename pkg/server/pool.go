@@ -2,8 +2,8 @@ package server
 
 import (
 	"context"
-	"github.com/prometheus/common/log"
-	"github.com/spf13/viper"
+
+	"github.com/go-kratos/kratos/v2/log"
 )
 
 type TaskFunc func()
@@ -11,22 +11,19 @@ type TaskFunc func()
 type Pool struct {
 	taskQueue  chan TaskFunc
 	workerSize int
+	log        *log.Helper
 }
 
-func NewPool(ctx context.Context) *Pool {
-	workerSize := viper.GetInt("app.worker")
-	queueSize := viper.GetInt("app.queue")
-	p := &Pool{taskQueue: make(chan TaskFunc, queueSize), workerSize: workerSize}
+func NewPool(ctx context.Context, queueSize, workerSize int, logger log.Logger) *Pool {
+	p := &Pool{taskQueue: make(chan TaskFunc, queueSize), workerSize: workerSize, log: log.NewHelper(logger)}
 	for i := 0; i < p.workerSize; i++ {
 		go p.run(ctx)
 	}
 	return p
 }
 
-func (p *Pool) Commit(taskFunc TaskFunc) {
-	log.Infof("receive a task")
-	log.Infof("current worker size: %d", p.workerSize)
-	log.Infof("task queue size: %d", p.Len())
+func (p *Pool) Commit(ctx context.Context, taskFunc TaskFunc) {
+	p.log.WithContext(ctx).Infof("current worker size: %d, current task queue size: %d", p.workerSize, p.Len())
 	p.taskQueue <- taskFunc
 }
 

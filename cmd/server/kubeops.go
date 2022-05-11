@@ -11,7 +11,7 @@ import (
 // go build -ldflags "-X main.Version=x.y.z"
 var (
 	// Name is the name of the compiled software.
-	Name = "pipper.kubeops.server"
+	Name = "pipperman.kubeops.server"
 	// Version is the version of the compiled software.
 	Version string
 	// configPath is the config flag.
@@ -51,8 +51,8 @@ func main() {
 	}
 
 	// init application
-	httpServer := newHttpServer()
-	grpcServer := newGrpcServer()
+	httpServer := newHttpServer(logger)
+	grpcServer := newGrpcServer(logger)
 	app := newApp(logger, httpServer, grpcServer)
 
 	// start and wait for stop signal

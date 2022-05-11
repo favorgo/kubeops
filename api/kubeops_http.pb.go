@@ -34,7 +34,7 @@ func RegisterKubeOpsApiHTTPServer(s *http.Server, srv KubeOpsApiHTTPServer) {
 	r.GET("/kubeops/project", _KubeOpsApi_ListProject0_HTTP_Handler(srv))
 	r.GET("/kubeops/inventory", _KubeOpsApi_GetInventory0_HTTP_Handler(srv))
 	r.POST("/kubeops/playbook", _KubeOpsApi_RunPlaybook0_HTTP_Handler(srv))
-	r.POST("/kubeops/Adhoc", _KubeOpsApi_RunAdhoc0_HTTP_Handler(srv))
+	r.POST("/kubeops/adhoc", _KubeOpsApi_RunAdhoc0_HTTP_Handler(srv))
 	r.GET("/kubeops/result/{taskId}", _KubeOpsApi_GetResult0_HTTP_Handler(srv))
 	r.GET("/kubeops/result", _KubeOpsApi_ListResult0_HTTP_Handler(srv))
 	r.GET("/kubeops/healthz", _KubeOpsApi_Health0_HTTP_Handler(srv))
@@ -297,7 +297,7 @@ func (c *KubeOpsApiHTTPClientImpl) ListResult(ctx context.Context, in *ListResul
 
 func (c *KubeOpsApiHTTPClientImpl) RunAdhoc(ctx context.Context, in *RunAdhocRequest, opts ...http.CallOption) (*RunAdhocResult, error) {
 	var out RunAdhocResult
-	pattern := "/kubeops/Adhoc"
+	pattern := "/kubeops/adhoc"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.KubeOpsApi/RunAdhoc"))
 	opts = append(opts, http.PathTemplate(pattern))

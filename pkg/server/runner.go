@@ -8,16 +8,29 @@ import (
 	"github.com/pipperman/kubeops/pkg/ansible"
 )
 
-type RunnerManager struct {
+type RunnerManagerServer interface {
+	CreateAdhocRunner(pattern, module, param string) (*ansible.AdhocRunner, error)
+	CreatePlaybookRunner(projectName, playbookName, tag string) (*ansible.PlaybookRunner, error)
+}
+
+type runnerManager struct {
+	projectManager ProjectManagerServer
 	inventoryCache *cache.Cache
 }
 
-func (rm *RunnerManager) CreatePlaybookRunner(projectName, playbookName, tag string) (*ansible.PlaybookRunner, error) {
-	err := preRunPlaybook(projectName, playbookName)
+func NewRunnerManagerServer(projectManager ProjectManagerServer, inventoryCache *cache.Cache) RunnerManagerServer {
+	return &runnerManager{
+		projectManager: projectManager,
+		inventoryCache: inventoryCache,
+	}
+}
+
+func (rm *runnerManager) CreatePlaybookRunner(projectName, playbookName, tag string) (*ansible.PlaybookRunner, error) {
+	err := rm.preRunPlaybook(projectName, playbookName)
 	if err != nil {
 		return nil, err
 	}
-	pm := ProjectManager{}
+	pm := NewProjectManagerServer()
 	p, err := pm.GetProject(projectName)
 	if err != nil {
 		return nil, err
@@ -29,7 +42,7 @@ func (rm *RunnerManager) CreatePlaybookRunner(projectName, playbookName, tag str
 	}, nil
 }
 
-func (rm *RunnerManager) CreateAdhocRunner(pattern, module, param string) (*ansible.AdhocRunner, error) {
+func (rm *runnerManager) CreateAdhocRunner(pattern, module, param string) (*ansible.AdhocRunner, error) {
 	return &ansible.AdhocRunner{
 		Module:  module,
 		Param:   param,
@@ -37,9 +50,8 @@ func (rm *RunnerManager) CreateAdhocRunner(pattern, module, param string) (*ansi
 	}, nil
 }
 
-func preRunPlaybook(projectName, playbookName string) error {
-	pm := ProjectManager{}
-	p, err := pm.GetProject(projectName)
+func (rm *runnerManager) preRunPlaybook(projectName, playbookName string) error {
+	p, err := rm.projectManager.GetProject(projectName)
 	if err != nil {
 		return err
 	}

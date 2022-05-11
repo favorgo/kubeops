@@ -8,7 +8,10 @@ import (
 	"os"
 	"os/exec"
 	"path"
+	"text/template"
 	"time"
+
+	"github.com/spf13/viper"
 
 	"github.com/pipperman/kubeops/api"
 	"github.com/pipperman/kubeops/pkg/constant"
@@ -56,15 +59,14 @@ func (a *AdhocRunner) Run(ch chan []byte, result *api.Result) {
 }
 
 func (p *PlaybookRunner) Run(ch chan []byte, result *api.Result) {
+	result.Success = false
 	ansiblePath, err := exec.LookPath(constant.AnsiblePlaybookBinPath)
 	if err != nil {
-		result.Success = false
 		result.Message = err.Error()
 		return
 	}
 	inventoryProviderPath, err := exec.LookPath(constant.InventoryProviderBinPath)
 	if err != nil {
-		result.Success = false
 		result.Message = err.Error()
 		return
 	}
@@ -108,12 +110,10 @@ func runCmd(ch chan []byte, projectName string, cmd *exec.Cmd, result *api.Resul
 	cmd.Stderr = stderr
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
-		result.Success = false
 		result.Message = err.Error()
 		return
 	}
 	if err := cmd.Start(); err != nil {
-		result.Success = false
 		result.Message = err.Error()
 		return
 	}
@@ -132,7 +132,6 @@ func runCmd(ch chan []byte, projectName string, cmd *exec.Cmd, result *api.Resul
 	}
 	close(ch)
 	if err = cmd.Wait(); err != nil {
-		result.Success = false
 		b, err := ioutil.ReadAll(stderr)
 		if err != nil {
 			log.Error(err)
@@ -159,33 +158,34 @@ func initWorkSpace(projectName string) (string, error) {
 	return workPath, nil
 }
 
-//func renderConfig(workPath string) error {
-//	tmpl := constant.AnsibleTemplateFilePath
-//	file, err := os.OpenFile(path.Join(workPath, ansibleCfgFileName), os.O_CREATE|os.O_RDWR, 0755)
-//	if err != nil {
-//		return err
-//	}
-//	defer file.Close()
-//	t, err := template.ParseFiles(tmpl)
-//	if err != nil {
-//		return err
-//	}
-//	data := viper.GetStringMap("ansible")
-//	if err := t.Execute(file, data); err != nil {
-//		return err
-//	}
-//	return nil
-//}
-//
-//func initPlugin(workPath string) error {
-//	projectPluginDir := path.Join(workPath, ansiblePluginDirName)
-//	_, err := os.Stat(projectPluginDir)
-//	if os.IsNotExist(err) {
-//		if err := os.Symlink(constant.AnsiblePluginDir, path.Join(workPath, ansiblePluginDirName))
-//			err != nil {
-//			return err
-//		}
-//		return nil
-//	}
-//	return err
-//}
+func renderConfig(workPath string) error {
+	tmpl := constant.AnsibleTemplateFilePath
+	file, err := os.OpenFile(path.Join(workPath, constant.AnsibleConfPath), os.O_CREATE|os.O_RDWR, 0755)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	t, err := template.ParseFiles(tmpl)
+	if err != nil {
+		return err
+	}
+	data := viper.GetStringMap("ansible")
+	if err := t.Execute(file, data); err != nil {
+		return err
+	}
+	return nil
+}
+
+var ansiblePluginDirName = ""
+
+func initPlugin(workPath string) error {
+	projectPluginDir := path.Join(workPath, ansiblePluginDirName)
+	_, err := os.Stat(projectPluginDir)
+	if os.IsNotExist(err) {
+		if err := os.Symlink(constant.AnsiblePluginDir, path.Join(workPath, ansiblePluginDirName)); err != nil {
+			return err
+		}
+		return nil
+	}
+	return err
+}

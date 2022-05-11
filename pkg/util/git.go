@@ -6,11 +6,11 @@ import (
 	"github.com/go-git/go-git/v5"
 )
 
-func CloneRepository(url, dest string) error {
+func CloneRepository(url, path string) error {
 	options := git.CloneOptions{
 		URL:      url,
 		Progress: os.Stdout,
 	}
-	_, err := git.PlainClone(dest, false, &options)
+	_, err := git.PlainClone(path, false, &options)
 	return err
 }

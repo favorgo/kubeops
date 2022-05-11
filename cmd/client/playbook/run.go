@@ -48,11 +48,11 @@ var playbookRunCmd = &cobra.Command{
 		if err != nil {
 			log.Fatal(err)
 		}
-		backend, err := cmd.Flags().GetBool("b")
+		detach, err := cmd.Flags().GetBool("detach")
 		if err != nil {
 			log.Fatal(err)
 		}
-		if backend {
+		if detach {
 			fmt.Println(result.Id)
 		} else {
 			sign := make(chan int)
@@ -73,8 +73,8 @@ var playbookRunCmd = &cobra.Command{
 				log.Fatal(err)
 			}
 			select {
-			case a := <-sign:
-				if a == 1 {
+			case signal := <-sign:
+				if signal == 1 {
 					if !result.Success {
 						log.Fatal(result.Message)
 					}
@@ -86,7 +86,7 @@ var playbookRunCmd = &cobra.Command{
 }
 
 func init() {
-	playbookRunCmd.Flags().StringP("project", "p", "", "specify project name")
-	playbookRunCmd.Flags().BoolP("b", "b", false, "run in background")
-	playbookRunCmd.Flags().StringP("inventory", "i", "", "specify inventory file path")
+	playbookRunCmd.Flags().StringP("project", "prj", "", "specify project name")
+	playbookRunCmd.Flags().BoolP("detach", "d", false, "run in background")
+	playbookRunCmd.Flags().StringP("inventory", "inv", "", "specify inventory file path")
 }

@@ -20,7 +20,7 @@ var taskListCmd = &cobra.Command{
 			log.Fatal(err)
 		}
 		for _, r := range rs {
-			out := fmt.Sprintf("%s  %s   %s   %t  %t",
+			out := fmt.Sprintf("result_id: %s,  start_time: %s,   end_time: %s,   finished: %t,  success: %t",
 				r.Id, r.StartTime, r.EndTime, r.Finished, r.Success)
 			fmt.Println(out)
 		}
