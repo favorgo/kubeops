@@ -4,4 +4,4 @@
 
 [设计文档](https://github.com/pipperman/kubeops/blob/main/docs/design.md)
 [GitHub](https://github.com/pipperman/kubeops)
-[开始阅读](#docsify![logo.svg](README.md))
+[开始阅读](README.md)
