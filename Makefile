@@ -32,17 +32,17 @@ init:
 
 .PHONY: build_linux
 build_linux:
-	GOOS=linux  GOARCH=$(GOARCH) $(GOBUILD) -o $(BUILDDIR)/$(BIN_DIR)/$(KUBEOPS_SERVER_NAME) $(KUBEOPS_SRC)/server/*.go
-	GOOS=linux  GOARCH=$(GOARCH) $(GOBUILD) -o $(BUILDDIR)/$(BIN_DIR)/$(KUBEOPS_INVENTORY_NAME) $(KUBEOPS_SRC)/inventory/*.go
-	GOOS=linux  GOARCH=$(GOARCH) $(GOBUILD) -o $(BUILDDIR)/$(BIN_DIR)/$(KUBEOPS_CLIENT_NAME) $(KUBEOPS_SRC)/opsctl/*.go
+	GOOS=linux  GOARCH=$(GOARCH) $(GOBUILD) -o $(BUILDDIR)/$(BIN_DIR)/$(KUBEOPS_SERVER_NAME) $(KUBEOPS_SRC)/server
+	GOOS=linux  GOARCH=$(GOARCH) $(GOBUILD) -o $(BUILDDIR)/$(BIN_DIR)/$(KUBEOPS_INVENTORY_NAME) $(KUBEOPS_SRC)/inventory
+	GOOS=linux  GOARCH=$(GOARCH) $(GOBUILD) -o $(BUILDDIR)/$(BIN_DIR)/$(KUBEOPS_CLIENT_NAME) $(KUBEOPS_SRC)/opsctl
 	mkdir -p $(BUILDDIR)/$(CONFIG_DIR) && cp -r  $(BASEPATH)/conf/* $(BUILDDIR)/$(CONFIG_DIR)
 	mkdir -p $(BUILDDIR)/$(BASE_DIR)/plugins/callback && cp  $(BASEPATH)/plugin/* $(BUILDDIR)/$(BASE_DIR)/plugins/callback
 
 .PHONY: build_darwin
 build_darwin:
-	GOOS=darwin  GOARCH=$(GOARCH) $(GOBUILD) -o $(BUILDDIR)/$(BIN_DIR)/$(KUBEOPS_SERVER_NAME) $(KUBEOPS_SRC)/server/*.go
-	GOOS=darwin  GOARCH=$(GOARCH) $(GOBUILD) -o $(BUILDDIR)/$(BIN_DIR)/$(KUBEOPS_INVENTORY_NAME) $(KUBEOPS_SRC)/inventory/*.go
-	GOOS=darwin  GOARCH=$(GOARCH) $(GOBUILD) -o $(BUILDDIR)/$(BIN_DIR)/$(KUBEOPS_CLIENT_NAME) $(KUBEOPS_SRC)/opsctl/*.go
+	GOOS=darwin  GOARCH=$(GOARCH) $(GOBUILD) -o $(BUILDDIR)/$(BIN_DIR)/$(KUBEOPS_SERVER_NAME) $(KUBEOPS_SRC)/server
+	GOOS=darwin  GOARCH=$(GOARCH) $(GOBUILD) -o $(BUILDDIR)/$(BIN_DIR)/$(KUBEOPS_INVENTORY_NAME) $(KUBEOPS_SRC)/inventory
+	GOOS=darwin  GOARCH=$(GOARCH) $(GOBUILD) -o $(BUILDDIR)/$(BIN_DIR)/$(KUBEOPS_CLIENT_NAME) $(KUBEOPS_SRC)/opsctl
 	mkdir -p $(BUILDDIR)/$(CONFIG_DIR) && cp -r  $(BASEPATH)/conf/* $(BUILDDIR)/$(CONFIG_DIR)
 	mkdir -p $(BUILDDIR)/$(BASE_DIR)/plugins/callback && cp  $(BASEPATH)/plugin/* $(BUILDDIR)/$(BASE_DIR)/plugins/callback
 
@@ -102,7 +102,12 @@ swagger:
 .PHONY: wire
 # generate wire
 wire:
-	cd cmd/kubeops && wire
+	cd cmd/server && wire
+
+.PHONY: generate
+# generate client code
+generate:
+	go generate ./...
 
 .PHONY: all
 # generate all

@@ -3,13 +3,13 @@ package playbook
 import (
 	"errors"
 	"fmt"
-	"github.com/pipperman/kubeops/app/opsctl"
 	"io/ioutil"
 	"log"
 	"os"
 	"time"
 
 	api "github.com/pipperman/kubeops/api/v1"
+	"github.com/pipperman/kubeops/app/opsctl"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"gopkg.in/yaml.v2"

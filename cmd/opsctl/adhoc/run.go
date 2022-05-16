@@ -2,7 +2,6 @@ package adhoc
 
 import (
 	"fmt"
-	"github.com/pipperman/kubeops/app/opsctl"
 	"io/ioutil"
 	"log"
 	"os"
@@ -10,6 +9,7 @@ import (
 
 	"github.com/ghodss/yaml"
 	api "github.com/pipperman/kubeops/api/v1"
+	"github.com/pipperman/kubeops/app/opsctl"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

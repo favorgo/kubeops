@@ -3,9 +3,9 @@ package project
 import (
 	"errors"
 	"fmt"
-	"github.com/pipperman/kubeops/app/opsctl"
 	"log"
 
+	"github.com/pipperman/kubeops/app/opsctl"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

@@ -2,13 +2,13 @@ package main
 
 import (
 	"flag"
-	kconf "github.com/go-kratos/kratos/v2/config"
-	"github.com/go-kratos/kratos/v2/config/file"
-	"gopkg.in/yaml.v2"
 	"os"
 
+	kconf "github.com/go-kratos/kratos/v2/config"
+	"github.com/go-kratos/kratos/v2/config/file"
 	"github.com/pipperman/kubeops/app/pkg/config"
 	"github.com/pipperman/kubeops/cmd/opsctl/root"
+	"gopkg.in/yaml.v2"
 )
 
 // go build -ldflags "-X main.Version=x.y.z"
