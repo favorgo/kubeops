@@ -1,0 +1,59 @@
+syntax = "proto3";
+package kratos.api;
+
+option go_package = "pkg/config;config";
+
+import "google/protobuf/duration.proto";
+
+message Bootstrap {
+    Trace trace = 1;
+    Server server = 2;
+    Cache cache = 3;
+}
+
+message Trace {
+    string endpoint = 1;
+}
+
+message Server {
+    message HTTP {
+        string network = 1;
+        string addr = 2;
+        google.protobuf.Duration timeout = 3;
+    }
+    message GRPC {
+        string network = 1;
+        string addr = 2;
+        google.protobuf.Duration timeout = 3;
+    }
+    message Task {
+        int32 queueSize = 3;
+        int32 workerSize = 4;
+    }
+    message Ansible {
+        int32 timeout = 1;
+        int32 forks   = 2;
+        string baseDir = 3;
+        string ansibleConfDir = 4;
+        string ansibleTemplateFilePath = 5;
+        string ansibleVariablesName = 6;
+    }
+    HTTP http = 1;
+    GRPC grpc = 2;
+    Task task  = 3;
+    Ansible ansible = 4;
+}
+
+message Cache {
+    message Etcd {
+        string addr = 1;
+        string cert = 2;
+        string key  = 3;
+    }
+    message Memcached {
+        google.protobuf.Duration defaultExpiration = 1;
+        google.protobuf.Duration cleanupInterval = 2;
+    }
+    Etcd etcd = 1;
+    Memcached memcached= 2;
+}

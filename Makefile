@@ -7,6 +7,8 @@ BASEPATH := $(shell pwd)
 BUILDDIR=$(BASEPATH)/dist
 
 API_PROTO_FILES=$(shell find api -name *.proto)
+ERROR_PROTO_FILES=$(shell find api/v1/errors -name *.proto)
+CONFIG_PROTO_FILES=$(shell find app/pkg/config -name *.proto)
 
 KUBEOPS_SRC=$(BASEPATH)/cmd
 KUBEOPS_SERVER_NAME=apiserver
@@ -32,7 +34,7 @@ init:
 build_linux:
 	GOOS=linux  GOARCH=$(GOARCH) $(GOBUILD) -o $(BUILDDIR)/$(BIN_DIR)/$(KUBEOPS_SERVER_NAME) $(KUBEOPS_SRC)/server/*.go
 	GOOS=linux  GOARCH=$(GOARCH) $(GOBUILD) -o $(BUILDDIR)/$(BIN_DIR)/$(KUBEOPS_INVENTORY_NAME) $(KUBEOPS_SRC)/inventory/*.go
-	GOOS=linux  GOARCH=$(GOARCH) $(GOBUILD) -o $(BUILDDIR)/$(BIN_DIR)/$(KUBEOPS_CLIENT_NAME) $(KUBEOPS_SRC)/client/*.go
+	GOOS=linux  GOARCH=$(GOARCH) $(GOBUILD) -o $(BUILDDIR)/$(BIN_DIR)/$(KUBEOPS_CLIENT_NAME) $(KUBEOPS_SRC)/opsctl/*.go
 	mkdir -p $(BUILDDIR)/$(CONFIG_DIR) && cp -r  $(BASEPATH)/conf/* $(BUILDDIR)/$(CONFIG_DIR)
 	mkdir -p $(BUILDDIR)/$(BASE_DIR)/plugins/callback && cp  $(BASEPATH)/plugin/* $(BUILDDIR)/$(BASE_DIR)/plugins/callback
 
@@ -40,7 +42,7 @@ build_linux:
 build_darwin:
 	GOOS=darwin  GOARCH=$(GOARCH) $(GOBUILD) -o $(BUILDDIR)/$(BIN_DIR)/$(KUBEOPS_SERVER_NAME) $(KUBEOPS_SRC)/server/*.go
 	GOOS=darwin  GOARCH=$(GOARCH) $(GOBUILD) -o $(BUILDDIR)/$(BIN_DIR)/$(KUBEOPS_INVENTORY_NAME) $(KUBEOPS_SRC)/inventory/*.go
-	GOOS=darwin  GOARCH=$(GOARCH) $(GOBUILD) -o $(BUILDDIR)/$(BIN_DIR)/$(KUBEOPS_CLIENT_NAME) $(KUBEOPS_SRC)/client/*.go
+	GOOS=darwin  GOARCH=$(GOARCH) $(GOBUILD) -o $(BUILDDIR)/$(BIN_DIR)/$(KUBEOPS_CLIENT_NAME) $(KUBEOPS_SRC)/opsctl/*.go
 	mkdir -p $(BUILDDIR)/$(CONFIG_DIR) && cp -r  $(BASEPATH)/conf/* $(BUILDDIR)/$(CONFIG_DIR)
 	mkdir -p $(BUILDDIR)/$(BASE_DIR)/plugins/callback && cp  $(BASEPATH)/plugin/* $(BUILDDIR)/$(BASE_DIR)/plugins/callback
 
@@ -71,8 +73,43 @@ http:
 		--go-http_out=paths=source_relative:. \
 		$(API_PROTO_FILES)
 
-.PHONY: gen
+.PHONY: errors
+# generate errors code
+errors:
+	protoc --proto_path=. \
+        --proto_path=./third_party \
+        --go_out=paths=source_relative:. \
+        --go-errors_out=paths=source_relative:. \
+        $(ERROR_PROTO_FILES)
+
+.PHONY: struct
+# generate code struct
+struct:
+	protoc --proto_path=. \
+       --proto_path=./third_party \
+       --go_out=paths=source_relative:. \
+       $(CONFIG_PROTO_FILES)
+
+.PHONY: swagger
+# generate swagger
+swagger:
+	protoc --proto_path=. \
+	    --proto_path=./third_party \
+	    --openapiv2_out . \
+	    --openapiv2_opt logtostderr=true \
+        $(API_PROTO_FILES)
+
+.PHONY: wire
+# generate wire
+wire:
+	cd cmd/kubeops && wire
+
+.PHONY: all
 # generate all
-gen:
+all:
 	make grpc;
 	make http;
+	make struct;
+	make errors;
+	make swagger;
+	make wire;

@@ -1,12 +1,18 @@
+trace:
+  endpoint: http://127.0.0.1:14268/api/traces
 server:
-  host: 0.0.0.0
-  httpPort: 8080
-  grpcPort: 9090
-  timeout: 1
+  http:
+    network: http
+    addr: 0.0.0.0:0
+    timeout: 1s
+  grpc:
+    network: tcp
+    addr: 0.0.0.0:0
+    timeout: 1s
 app:
   worker: 10
   queue: 2000
-
-ansible:
-  timeout: 10
-  forks: 20
+  ansible:
+    timeout: 10
+    forks: 20
+cache:

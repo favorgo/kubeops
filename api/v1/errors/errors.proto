@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package kubeops.service.v1;
+import "errors/errors.proto";
+
+option go_package = "pkg/errors;errors";
+option java_multiple_files = true;
+
+enum KubeOpsServiceErrorReason {
+    option (errors.default_code) = 500;
+
+    UNKNOWN_ERROR = 0;
+}

@@ -1,0 +1,208 @@
+syntax = "proto3";
+
+package api;
+
+import "google/api/annotations.proto";
+
+option go_package = "api/v1;v1";
+
+
+service KubeOpsApi {
+  rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse){
+    option  (google.api.http) = {
+      get: "/kubeops/project/{name}"
+    };
+  }
+  rpc ListProject(ListProjectRequest) returns(ListProjectResponse){
+    option  (google.api.http) = {
+      get: "/kubeops/project"
+    };
+  }
+  rpc GetInventory(GetInventoryRequest) returns(GetInventoryResponse){
+    option  (google.api.http) = {
+      get: "/kubeops/inventory"
+    };
+  }
+  rpc RunPlaybook(RunPlaybookRequest) returns(RunPlaybookResult){
+    option  (google.api.http) = {
+      post: "/kubeops/playbook",
+      body: "*"
+    };
+  }
+  rpc RunAdhoc(RunAdhocRequest) returns(RunAdhocResult){
+    option  (google.api.http) = {
+      post: "/kubeops/adhoc",
+      body: "*"
+    };
+  }
+  rpc WatchResult(WatchRequest) returns(stream WatchStream){
+    option  (google.api.http) = {
+      post: "/kubeops/result/{taskID}/watch"
+    };
+  }
+  rpc GetResult(GetResultRequest) returns(GetResultResponse){
+    option  (google.api.http) = {
+      get: "/kubeops/result/{taskID}"
+    };
+  }
+  rpc ListResult(ListResultRequest) returns(ListResultResponse){
+    option  (google.api.http) = {
+      get: "/kubeops/result"
+    };
+  }
+  rpc Health(HealthRequest) returns(HealthResponse) {
+    option  (google.api.http) = {
+      get: "/kubeops/healthz"
+    };
+  }
+}
+
+// The request message containing the user's name.
+message HealthRequest {
+}
+
+// The response message containing the greetings
+message HealthResponse {
+  string message = 1;
+}
+
+message Project{
+  // @inject_tag: valid:"string"
+  string name = 1 ;
+  repeated string playbooks = 2;
+}
+
+message Host {
+  string ip = 1;
+  string name = 2;
+  int32 port = 3;
+  string user = 4;
+  string password = 5;
+  string privateKey = 6;
+  ProxyConfig proxyConfig = 7;
+  map<string, string> vars = 8;
+}
+
+message ProxyConfig {
+  bool enable = 1;
+  string user = 2;
+  string password = 3;
+  string ip = 4;
+  int32 port = 5;
+}
+
+
+message Group {
+  string name = 1;
+  repeated string hosts = 2;
+  repeated string children = 3;
+  map<string, string>vars = 4;
+}
+
+message Inventory{
+  repeated Host hosts = 1;
+  repeated Group groups = 2;
+  map<string, string> vars = 3;
+}
+
+message CreateProjectRequest {
+  string name = 1;
+  string source = 2;
+}
+
+message CreateProjectResponse {
+  Project item = 1;
+}
+
+message ListProjectParam {
+  string name = 1;
+}
+
+message PageInfo {
+  int64 pageNum = 1;
+  int64 pageSize = 2;
+  optional int64 totalCount = 3;
+}
+
+message ListProjectRequest {
+  PageInfo pageInfo = 1;
+  ListProjectParam param = 2;
+}
+
+message ListProjectResponse {
+  repeated Project items = 1;
+  PageInfo pageInfo = 2;
+}
+
+message RunPlaybookRequest {
+  string project = 1;
+  string playbook = 2;
+  Inventory inventory = 3;
+  string tag = 4;
+}
+
+message RunPlaybookResult {
+  Result result = 1;
+}
+
+message RunAdhocRequest {
+  Inventory inventory = 1;
+  string pattern = 2;
+  string module = 3;
+  string param = 4;
+}
+
+message RunAdhocResult{
+  Result result = 1;
+}
+
+message Result {
+  string id = 1;
+  string startTime = 2;
+  string endTime = 3;
+  string message = 4;
+  bool success = 5;
+  bool finished = 6;
+  string content = 7;
+  string project = 8;
+}
+
+message WatchStream {
+  bytes stream = 1;
+}
+
+message WatchRequest{
+  string taskID = 1;
+}
+
+message GetInventoryRequest {
+  string id = 1;
+}
+
+message GetInventoryResponse {
+  Inventory item = 1;
+}
+
+message GetResultRequest{
+  string taskID = 1;
+}
+
+message GetResultResponse{
+  Result item = 1;
+}
+
+message ListResultParam {
+  string taskID = 1;
+}
+
+message ListResultRequest{
+  PageInfo pageInfo = 1;
+  ListProjectParam param = 2;
+}
+
+message ListResultResponse{
+  repeated Result items = 1;
+  PageInfo pageInfo = 2;
+}
+
+
