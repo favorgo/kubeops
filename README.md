@@ -24,4 +24,6 @@
 
 - [ ] Storage
 
+- [ ] Etcd
+
  
