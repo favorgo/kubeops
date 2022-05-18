@@ -49,16 +49,15 @@ func Handlers() []Handler {
 		makeCacheDir,
 		makeKeyDir,
 		makeAnsibleCfgDir,
-		lookUpAnsibleBinPath,
-		lookupKubeOpsInventoryBinPath,
+		//lookUpAnsibleBinPath,
+		//lookupKubeOpsInventoryBinPath,
 		cleanWorkPath,
-		//renderAnsibleConfig,
+		renderAnsibleConfig,
 	}
 }
 
 func makeDataDir() error {
 	return os.MkdirAll(constant.DataDir, 0755)
-
 }
 
 func makeAnsibleCfgDir() error {

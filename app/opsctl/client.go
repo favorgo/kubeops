@@ -3,6 +3,7 @@ package opsctl
 import (
 	"context"
 	"fmt"
+	"github.com/pipperman/kubeops/app/kubeops/biz/types"
 	"io"
 
 	"github.com/google/wire"
@@ -107,7 +108,7 @@ func (c *kubeOpsClient) WatchRun(taskId string, writer io.Writer) error {
 	defer conn.Close()
 	client := api.NewKubeOpsApiClient(conn)
 	req := &api.WatchRequest{
-		TaskId: taskId,
+		TaskID: types.TaskID(taskId),
 	}
 	server, err := client.WatchResult(context.Background(), req)
 	if err != nil {
@@ -137,7 +138,7 @@ func (c *kubeOpsClient) GetResult(taskId string) (*api.Result, error) {
 	defer conn.Close()
 	client := api.NewKubeOpsApiClient(conn)
 	request := api.GetResultRequest{
-		TaskId: taskId,
+		TaskID: types.TaskID(taskId),
 	}
 	resp, err := client.GetResult(context.Background(), &request)
 	if err != nil {

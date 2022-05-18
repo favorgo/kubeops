@@ -31,12 +31,12 @@ message Server {
         int32 workerSize = 4;
     }
     message Ansible {
-        int32 timeout = 1;
-        int32 forks   = 2;
-        string baseDir = 3;
-        string ansibleConfDir = 4;
-        string ansibleTemplateFilePath = 5;
-        string ansibleVariablesName = 6;
+        int32 forks   = 1;
+        string baseDir = 2;
+        string ansibleConfDir = 3;
+        string ansibleTemplateFilePath = 4;
+        string ansibleVariablesName = 5;
+        google.protobuf.Duration timeout = 6;
     }
     HTTP http = 1;
     GRPC grpc = 2;

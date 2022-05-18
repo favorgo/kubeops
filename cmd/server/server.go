@@ -43,7 +43,7 @@ func init() {
 	flag.StringVar(&configPath, "conf", "./conf", "config path, eg: -conf ./conf")
 	flag.StringVar(&baseDir, "basedir", "./dist/etc/kubeops", "base director, eg: -basedir /etc/errors")
 	flag.StringVar(&ansibleConfDir, "ansibleConfDir", "./dist/etc/ansible", "config path, eg: -ansibleConfDir /etc/ansible")
-	flag.StringVar(&ansibleTemplateFilePath, "ansibleTemplateFilePath", "./dist/etc/kubeops/", "base director, eg: -ansibleTemplateFilePath /etc/errors/")
+	flag.StringVar(&ansibleTemplateFilePath, "ansibleTemplateFilePath", "./dist/etc/kubeops", "base director, eg: -ansibleTemplateFilePath /etc/errors/")
 	flag.StringVar(&ansibleVariablesName, "variablesName", "variable.yml", "variable name, eg: -variablesName variable.yml")
 }
 
